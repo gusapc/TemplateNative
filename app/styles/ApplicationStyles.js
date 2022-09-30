@@ -69,6 +69,9 @@ const ApplicationStyles = {
 		}
 	},
 	margins: {
+		tinyPadding:{ padding: Metrics.tinyMargin }, 
+		smallMargin:{ margin: Metrics.smallMargin }, 
+		baseMargin:{ margin: Metrics.baseMargin }, 
 		tinyVerticalMargin: {
 			marginVertical: Metrics.tinyMargin
 		},

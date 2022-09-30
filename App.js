@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import AppNavigator from './app/Router';
+import AppNavigator from './app/router';
 import './app/locales/moment-es';
 import { SetupContainer } from './app/containers';
 import { assetsLight, assetsDark } from './assets';

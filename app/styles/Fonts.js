@@ -1,4 +1,5 @@
 const size = {
+	xHuge: 44,
 	huge: 32,
 	big: 24,
 	title: 20,

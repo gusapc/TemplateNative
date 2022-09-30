@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "TemplateNative",
-    "slug": "TemplateNative",
+    "name": "ViosFullNative",
+    "slug": "ViosFullNative",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
