@@ -16,19 +16,20 @@ export default function () {
 		if (h) size.height = h;
 		return size;
 	};
-	const breaks = [
-		width > 1500 ? '40%' : '20%',
-		width > 768 ? 0.5 : 0.3,
-		width > 775 || height < width,
-		width * 0.5 > 512 ? 665 : 512,
-		width > 768 ? 0.5 : 0.7,
-		height * 0.15,
-		height * 0.3,
-		width < 920,
-		width < 420,
-		height - Metrics.navBarHeight * 2,
-		isWeb ? height * 0.3 : height * 0.2,
-	];
+	const breaks = {
+		0: width > 1500 ? '40%' : '20%',
+		1: width * (width > 768 ? 0.5 : 0.3),
+		2: width > 775 || height < width,
+		3: width * 0.5 > 512 ? 665 : 512,
+		4: width * (width > 768 ? 0.5 : 0.7),
+		5: height * 0.15,
+		6: height * 0.3,
+		7: width < 920,
+		8: width < 420,
+		9: height - Metrics.navBarHeight * 2,
+		10: isWeb ? height * 0.3 : height * 0.2,
+		length: 9
+	};
 	return {
 		width,
 		height,

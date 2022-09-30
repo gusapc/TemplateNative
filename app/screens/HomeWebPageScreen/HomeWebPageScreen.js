@@ -11,15 +11,11 @@ export default function HomeWebPageScreen({ navigation }) {
 	const { images } = useTheme();
 	const { width, isDesktop, isPortrait, getSize, breaks, isWeb } = useResponsive();
 	const goToAuth = (val) => {
-		if (isWeb) {
-			if (val) {
-				Linking.openURL('https://play.google.com/store/games?hl=es_MX&gl=US');
-			} else {
-				Linking.openURL('https://www.apple.com/mx/app-store/');
-			}
-		} else {
-			navigation.navigate('LoginScreen', { isEmail: val });
-		}
+		if (isWeb)
+			Linking.openURL(
+				val ? 'https://play.google.com/store/games?hl=es_MX&gl=US' : 'https://www.apple.com/mx/app-store/',
+			);
+		else navigation.navigate('LoginScreen', { isEmail: val });
 	};
 
 	const Btns = ({ w, h, img, txt, onPress }) =>
@@ -35,14 +31,14 @@ export default function HomeWebPageScreen({ navigation }) {
 		if (isDesktop)
 			return (
 				<View style={[getSize(width, breaks[9]), styles.row]}>
-					<View style={[getSize(width * breaks[1], breaks[9]), styles.centerObjects]}>
+					<View style={[getSize(breaks[1], breaks[9]), styles.centerObjects]}>
 						<ImageBackground
 							source={breaks[2] ? images.group1 : images.Mockup19}
 							resizeMode="contain"
 							style={getSize(breaks[3], 450)}
 						/>
 					</View>
-					<View style={getSize(width * breaks[4], breaks[9])}>
+					<View style={getSize(breaks[4], breaks[9])}>
 						<View style={[getSize('100%', breaks[5]), styles.baseTopMargin, styles.justifyContentCenter]}>
 							<ImageBackground resizeMode="contain" source={images.viosname} style={getSize(200, 100)} />
 						</View>
