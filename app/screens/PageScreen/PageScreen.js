@@ -5,12 +5,13 @@ import { PageBottomBar, PageTopBar } from '../../modules';
 import styles from './PageScreenStyle';
 import { Metrics } from '../../styles';
 import { useTheme } from '@react-navigation/native';
-import { useWindowDimensions } from 'react-native';
+import {  useResponsive } from '../../hooks';
+
 import { Feather } from '@expo/vector-icons';
 export default function PageScreen({ navigation }) {
 	const { images, colors } = useTheme();
 	const [currentPage, setCurrentPage] = useState('');
-	const { width, height } = useWindowDimensions();
+	const { width, height } = useResponsive();
 	const HomeDes = () => (
 		<ScrollView style={{ width, height: height }}>
 			<View style={[{ width, height: height * 0.85 }, styles.row]}>

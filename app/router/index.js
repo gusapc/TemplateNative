@@ -12,6 +12,7 @@ import {
 } from '../screens';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { PageLayout } from '../modules';
+
 const AppStack = createStackNavigator();
 const TopTabStack = createMaterialTopTabNavigator();
 

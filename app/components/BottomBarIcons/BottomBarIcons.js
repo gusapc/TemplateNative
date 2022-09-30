@@ -5,11 +5,10 @@ import { Feather, Ionicons } from '@expo/vector-icons';
 import TextComponent from '../TextComponent';
 import styles from './BottomBarIconsStyle';
 import { useTheme } from '@react-navigation/native';
-import { useWindowDimensions } from 'react-native';
-import { useTranslation } from '../../hooks';
+import {  useResponsive } from '../../hooks';
+
 export default function BottomBarIcons(props) {
-	const { t } = useTranslation();
-	const { width } = useWindowDimensions();
+	const { width } = useResponsive();
 	const { colors } = useTheme();
 	const icon = () => {
 		if (props.iconType === 'Ionicons')
@@ -36,7 +35,7 @@ export default function BottomBarIcons(props) {
 					<View style={{ marginBottom: 10 }}>
 						<TextComponent
 							size={'label'}
-							text={t(props.name)}
+							text={props.name}
 							color={props.textColor}
 							numberOfLines={1}
 							ellipsizeMode={'tail'}

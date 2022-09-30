@@ -9,6 +9,11 @@ export default {
 		Contact: 'Contact',
 		'To-access': 'log in',
 	},
+	HomeWebPageScreen: {
+		phrase: 'Creating united communities and smart neighborhoods.',
+		manager: "I'm a manager",
+		neighbor: "I'm a neighbor",
+	},
 	ExampleScreen: {
 		darkMode: 'Dark mode',
 		lightMode: 'Light mode',

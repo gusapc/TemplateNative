@@ -9,6 +9,11 @@ export default {
 		Contact: 'Contacto',
 		'To-access': 'Acceder',
 	},
+	HomeWebPageScreen: {
+		phrase: 'Creando comunidades unidas y vecindarios inteligentes.',
+		manager: 'Soy delegado',
+		neighbor: 'Soy vecino',
+	},
 	ExampleScreen: {
 		darkMode: 'Modo Oscuro',
 		lightMode: 'Modo Claro',

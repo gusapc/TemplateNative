@@ -3,11 +3,11 @@ import { View } from 'react-native';
 import { WebSection } from '../../components';
 import styles from './ProductsWebPageScreenStyle';
 import { useTheme } from '@react-navigation/native';
-import { useWindowDimensions } from 'react-native';
+import {  useResponsive } from '../../hooks';
 
 export default function ProductsWebPageScreen() {
 	const { images } = useTheme();
-	const { width } = useWindowDimensions();
+	const { width } = useResponsive();
 
 	return (
 		<View style={styles.container}>

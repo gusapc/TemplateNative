@@ -1,12 +1,11 @@
 import React from 'react';
-import { View, ImageBackground } from 'react-native';
+import { View, ImageBackground, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import styles from './WebSectionStyle';
-import { useWindowDimensions } from 'react-native';
+import {  useResponsive } from '../../hooks';
 import { Metrics } from '../../styles';
 export default function WebSection({ image, children }) {
-	const { height, width } = useWindowDimensions();
-
+	const { height, width } = useResponsive();
 	return (
 		<View style={{ width: width, height: height }}>
 			<ImageBackground source={image} resizeMode="cover" style={styles.image}>
@@ -25,18 +24,26 @@ export default function WebSection({ image, children }) {
 						height: Metrics.navBarHeight,
 					}}
 				/>
-				<View
+				<ScrollView
 					style={{
 						width,
-						height: height - (Metrics.navBarHeight*2),
+						height: height+20 -  Metrics.navBarHeight * 2 ,
 					}}
 				>
-					{children}
-				</View>
+					<View
+						style={{
+							width,
+							minHeight: height+20 -  Metrics.navBarHeight * 2,  
+							justifyContent:'space-between'
+						}}
+					>
+						{children}
+					</View>
+				</ScrollView>
 				<View
 					style={{
 						width,
-						height: Metrics.navBarHeight,
+						height: Metrics.navBarHeight-20,
 					}}
 				/>
 			</ImageBackground>
