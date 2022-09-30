@@ -1,6 +1,5 @@
-import { StyleSheet } from 'react-native';
-// import { Fonts, Colors, Metrics } from 'ViosFullNative/app/styles';
-import { ApplicationStyles } from 'ViosFullNative/app/styles';
+import { StyleSheet } from 'react-native'; 
+import { ApplicationStyles } from '../../styles';
 
 export default StyleSheet.create({
 	 ...ApplicationStyles.screen,
