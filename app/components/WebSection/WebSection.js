@@ -3,8 +3,8 @@ import { View, ImageBackground } from 'react-native';
 import PropTypes from 'prop-types';
 import styles from './WebSectionStyle';
 import { useWindowDimensions } from 'react-native';
-
-export default function WebSection({ image,children }) {
+import { Metrics } from '../../styles';
+export default function WebSection({ image, children }) {
 	const { height, width } = useWindowDimensions();
 
 	return (
@@ -19,7 +19,26 @@ export default function WebSection({ image,children }) {
 						opacity: 0.8,
 					}}
 				/>
-				{children}
+				<View
+					style={{
+						width,
+						height: Metrics.navBarHeight,
+					}}
+				/>
+				<View
+					style={{
+						width,
+						height: height - (Metrics.navBarHeight*2),
+					}}
+				>
+					{children}
+				</View>
+				<View
+					style={{
+						width,
+						height: Metrics.navBarHeight,
+					}}
+				/>
 			</ImageBackground>
 		</View>
 	);

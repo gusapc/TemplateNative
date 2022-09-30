@@ -1,17 +1,14 @@
-import React /*{useEffect, useState}*/ from 'react';
-import { Text, View, Button } from 'react-native';
-
+import React from 'react';
+import { View } from 'react-native';
+import { WebSection } from '../../components';
 import styles from './HomeWebPageScreenStyle';
+import { useTheme } from '@react-navigation/native';
+export default function HomeWebPageScreen() {
+	const { images } = useTheme();
 
-export default function HomeWebPageScreen (props) {
 	return (
 		<View style={styles.container}>
-			<View style={{ height: 100, width: 100 }} />
-			<Text>HomeWebPageScreen</Text>
+			<WebSection image={images.homepage}></WebSection>
 		</View>
 	);
 }
-
-
-
-

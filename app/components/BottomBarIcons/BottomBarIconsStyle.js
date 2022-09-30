@@ -8,5 +8,5 @@ export default StyleSheet.create({
 		topBorder: { borderTopWidth: 2 },
 		topBorderActive: { borderTopWidth: 2 },
 		bottomBorder: { borderTopWidth: 0, borderBottomWidth: 2 },
-		bottomBorderActive: { borderTopWidth: 0, borderBottomWidth: 2 },
+		bottomBorderActive: { borderTopWidth: 2, borderBottomWidth: 0 },
 });

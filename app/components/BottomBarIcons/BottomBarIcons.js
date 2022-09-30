@@ -6,8 +6,9 @@ import TextComponent from '../TextComponent';
 import styles from './BottomBarIconsStyle';
 import { useTheme } from '@react-navigation/native';
 import { useWindowDimensions } from 'react-native';
-
+import { useTranslation } from '../../hooks';
 export default function BottomBarIcons(props) {
+	const { t } = useTranslation();
 	const { width } = useWindowDimensions();
 	const { colors } = useTheme();
 	const icon = () => {
@@ -28,13 +29,14 @@ export default function BottomBarIcons(props) {
 						props.isBottom ? styles.topBorder : styles.topBorderActive,
 						props.isTop ? styles.bottomBorder : styles.bottomBorderActive,
 						{ borderColor: colors[!hovered ? props.borderColor : props.borderHoverColor] },
+						hovered && { opacity: 0.8 },
 					]}
 				>
 					{icon()}
 					<View style={{ marginBottom: 10 }}>
 						<TextComponent
 							size={'label'}
-							text={props.name}
+							text={t(props.name)}
 							color={props.textColor}
 							numberOfLines={1}
 							ellipsizeMode={'tail'}
@@ -63,7 +65,7 @@ BottomBarIcons.defaultProps = {
 	onPress: () => {},
 	iconType: 'Feather',
 	textColor: 'absWhite',
-	size: 25,
+	size: 30,
 	isTop: false,
 	isBottom: false,
 	borderColor: 'absWhite',

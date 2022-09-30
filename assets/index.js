@@ -19,6 +19,7 @@ import viosIcon from './vios-icon.png';
 import viosname from './viosname.png';
 import vision from './vision.png';
 import Mockup19 from './mockup_19.png';
+import screen5 from './screen5.png';
 
 import defaultColors from './colors';
 
@@ -43,6 +44,7 @@ export const imgs = {
 	viosname,
 	vision,
 	Mockup19,
+	screen5
 };
 
 export const assetsLight = {
