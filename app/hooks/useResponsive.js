@@ -28,7 +28,16 @@ export default function () {
 		8: width < 420,
 		9: height - Metrics.navBarHeight * 2,
 		10: isWeb ? height * 0.3 : height * 0.2,
-		length: 9
+		11: width < 665,
+		12: height * 0.2,
+		13: isDesktop ? 200 : 8,
+		14: isDesktop ? height * 0.5 : height * 0.3,
+		15: Metrics.navBarHeight,
+		16: height + 20 - Metrics.navBarHeight * 2,
+		17: Metrics.navBarHeight - 20,
+		18:width <= 665,
+		19:width > 665,
+		length: 19
 	};
 	return {
 		width,

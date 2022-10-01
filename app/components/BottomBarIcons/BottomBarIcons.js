@@ -8,7 +8,7 @@ import { useTheme } from '@react-navigation/native';
 import {  useResponsive } from '../../hooks';
 
 export default function BottomBarIcons(props) {
-	const { width } = useResponsive();
+	const { width, getSize } = useResponsive();
 	const { colors } = useTheme();
 	const icon = () => {
 		if (props.iconType === 'Ionicons')

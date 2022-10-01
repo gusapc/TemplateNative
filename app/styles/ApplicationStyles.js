@@ -87,6 +87,9 @@ const ApplicationStyles = {
 		baseHorizontalMargin: {
 			marginHorizontal: Metrics.baseMargin
 		},
+		baseHorizontalPadding: {
+			paddingHorizontal: Metrics.baseMargin,
+		},
 		smallTopMargin: {
 			marginTop: Metrics.smallMargin
 		},	

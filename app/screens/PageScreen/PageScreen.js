@@ -158,9 +158,3 @@ export default function PageScreen({ navigation }) {
 		</View>
 	);
 }
-
-// {/* <Image source={images.group1} style={{ width: 100, height: 100 }} />
-// 					<Image source={images.viosname} style={{ width: 100, height: 100 }} />
-// 					<TextComponent text='Creando comunidades unidas y vecindarios inteligentes.' />
-// 					<Image source={images.playstore} style={{ width: 100, height: 100 }} />
-// 					<Image source={images.appstore} style={{ width: 100, height: 100 }} /> */}

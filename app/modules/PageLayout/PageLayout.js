@@ -5,17 +5,17 @@ import { BottomBarIcons } from '../../components';
 import { useTheme } from '@react-navigation/native';
 import { useTranslation } from '../../hooks';
 import { FontAwesome } from '@expo/vector-icons';
-import {  useResponsive } from '../../hooks';
+import { useResponsive } from '../../hooks';
 
 export default function PageLayout({ navigationState, navigation }) {
 	const { setLocale, locale, t } = useTranslation('PageLayout');
 	const { images, colors } = useTheme();
-	const { width } = useResponsive();
+	const { width, breaks } = useResponsive();
 	return (
 		<React.Fragment>
 			<View style={[styles.topBar, { backgroundColor: colors.absBlack, width: width }]}>
 				<SafeAreaView style={[styles.row, styles.justifyContentSpaceBetween]}>
-					{width < 665 && (
+					{breaks[11] && (
 						<BottomBarIcons
 							isTop
 							borderColor="absBlack"
@@ -29,7 +29,7 @@ export default function PageLayout({ navigationState, navigation }) {
 						<Image source={images.logo} style={styles.logoImg} />
 					</View>
 					<View style={[styles.row]}>
-						{width > 665 && (
+						{breaks[19] && (
 							<React.Fragment>
 								<BottomBarIcons
 									isTop
@@ -68,7 +68,7 @@ export default function PageLayout({ navigationState, navigation }) {
 							name={t('To-access')}
 							iconName={'log-in'}
 						/>
-						{width > 665 && (
+						{breaks[19] && (
 							<BottomBarIcons
 								isTop
 								borderColor="absBlack"
