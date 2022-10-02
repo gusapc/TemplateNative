@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
-// import { ApplicationStyles } from '../../styles';
-
+// import { Fonts, Colors, Metrics } from 'TemplateNative/app/styles';
+// import { ApplicationStyles } from 'TemplateNative/app/styles';
 
 export default StyleSheet.create({
 	// ...ApplicationStyles.screen,

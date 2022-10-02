@@ -2,6 +2,7 @@ import { Dimensions, Platform, StatusBar } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
+// Used via Metrics.baseMargin
 const metrics = {
 	doubleBaseMargin: 32,
 	baseMargin: 16,
@@ -12,8 +13,6 @@ const metrics = {
 	navBarHeight: (Platform.OS === 'ios') ? 64 : 79,
 	statusBarHeight: StatusBar.currentHeight,
 	buttonRadius: 10,
-	width, 
-	height,
 	icons: {
 		small: 16,
 		regular: 24,

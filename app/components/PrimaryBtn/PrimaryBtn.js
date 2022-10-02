@@ -24,7 +24,7 @@ export default function PrimaryBtn(props) {
 			disabled={props.disabled}
 		>
 			<View style={[styles.smallVerticalMargin, styles.smallHorizontalMargin]}>
-				<TextComponent text={props.text} align="center" color={props.colorText} size="large" font="mSemiBold"  />
+				<TextComponent text={props.text} align="center" color={props.colorText} size="large" font="mBlack"  />
 			</View>
 		</TouchableOpacity>
 	);
