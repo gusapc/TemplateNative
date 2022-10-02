@@ -64,7 +64,7 @@ export default function HomeWebPageScreen({ navigation }) {
 								w={300}
 								h={100}
 							/>
-							<View style={getSize(8, 8)} />
+							<View style={[getSize(null, 8), styles.fullWidth]} />
 							<Btns
 								onPress={() => goToAuth(false)}
 								txt={t('neighbor')}
@@ -141,6 +141,7 @@ export default function HomeWebPageScreen({ navigation }) {
 					text={t('phrase')}
 				/>
 				<Btns onPress={() => goToAuth(true)} txt={t('manager')} img={images.playstore} w={250} h={100} />
+				<View style={getSize(16, 16)} />
 				<Btns onPress={() => goToAuth(false)} txt={t('neighbor')} img={images.appstore} w={250} h={100} />
 			</View>
 		);

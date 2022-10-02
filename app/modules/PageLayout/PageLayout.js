@@ -10,7 +10,7 @@ import { useResponsive } from '../../hooks';
 export default function PageLayout({ navigationState, navigation }) {
 	const { setLocale, locale, t } = useTranslation('PageLayout');
 	const { images, colors } = useTheme();
-	const { width, breaks } = useResponsive();
+	const { width, breaks, isLandscape } = useResponsive();
 	return (
 		<React.Fragment>
 			<View style={[styles.topBar, { backgroundColor: colors.absBlack, width: width }]}>
@@ -29,7 +29,7 @@ export default function PageLayout({ navigationState, navigation }) {
 						<Image source={images.logo} style={styles.logoImg} />
 					</View>
 					<View style={[styles.row]}>
-						{breaks[19] && (
+						{breaks[19] && !isLandscape && (
 							<React.Fragment>
 								<BottomBarIcons
 									isTop
@@ -68,7 +68,7 @@ export default function PageLayout({ navigationState, navigation }) {
 							name={t('To-access')}
 							iconName={'log-in'}
 						/>
-						{breaks[19] && (
+						{breaks[19] && !isLandscape && (
 							<BottomBarIcons
 								isTop
 								borderColor="absBlack"
@@ -81,7 +81,7 @@ export default function PageLayout({ navigationState, navigation }) {
 					</View>
 				</SafeAreaView>
 			</View>
-			{width <= 665 ? (
+			{width <= 665 || isLandscape  ? (
 				<View
 					style={[
 						{

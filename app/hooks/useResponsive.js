@@ -35,9 +35,12 @@ export default function () {
 		15: Metrics.navBarHeight,
 		16: height + 20 - Metrics.navBarHeight * 2,
 		17: Metrics.navBarHeight - 20,
-		18:width <= 665,
-		19:width > 665,
-		length: 19
+		18: width <= 665,
+		19: width > 665,
+		20: width < 1116,
+		21: isLandscape || isPortrait ? '100%' : '80%',
+		22: isPortrait || isLandscape,
+		length: 22,
 	};
 	return {
 		width,

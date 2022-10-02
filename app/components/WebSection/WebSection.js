@@ -12,7 +12,7 @@ export default function WebSection({ image, children }) {
 				<View style={[getSize(width, height), styles.topSpace]} />
 				<View style={getSize(width, breaks[15])} />
 				<ScrollView style={getSize(width, breaks[16])}>
-					<View style={[getSize(width, breaks[16]), styles.justifyContentSpaceBetween]}>{children}</View>
+					<View style={[getSize(width, null), {minHeight:breaks[16]}, styles.justifyContentSpaceBetween]}>{children}</View>
 				</ScrollView>
 				<View style={getSize(width, breaks[17])} />
 			</ImageBackground>

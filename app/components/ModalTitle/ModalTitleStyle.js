@@ -1,9 +1,11 @@
 import { StyleSheet } from 'react-native';
+// import { Fonts, Colors, Metrics } from 'ViosFullNative/app/styles';
 import { ApplicationStyles } from '../../styles';
 
-
 export default StyleSheet.create({
-	 ...ApplicationStyles.screen,
+	...ApplicationStyles.screen,
 	...ApplicationStyles.flexBox,
 	...ApplicationStyles.margins,
+	br: { borderRadius: 20, borderWidth: 1 },
+	op: { opacity: 0.9 },
 });

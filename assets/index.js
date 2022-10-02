@@ -1,4 +1,4 @@
-import { DefaultTheme, DarkTheme } from '@react-navigation/native'; 
+import { DefaultTheme, DarkTheme } from '@react-navigation/native';
 import aboutuspage from './aboutuspage.png';
 import appstore from './appstore.png';
 import bg3 from './bg3.jpeg';
@@ -44,7 +44,37 @@ export const imgs = {
 	viosname,
 	vision,
 	Mockup19,
-	screen5
+	screen5,
+};
+
+export const methods = {
+	getColors(backgroundColor = null, color = null) {
+		let style = {};
+		if (backgroundColor) style.backgroundColor = backgroundColor;
+		if (color) style.color = color;
+		return style;
+	},
+	getColor(color = null) {
+		let style = {};
+		if (color) style.color = color;
+		return style;
+	},
+	getBg(backgroundColor = null) {
+		let style = {};
+		if (backgroundColor) style.backgroundColor = backgroundColor;
+		return style;
+	},
+	getBrColor(borderColor = null) {
+		let style = {};
+		if (borderColor) style.borderColor = borderColor;
+		return style;
+	},
+	// borderBottomColor
+	// borderEndColor
+	// borderLeftColor
+	// borderRightColor
+	// borderStartColor
+	// borderTopColor
 };
 
 export const assetsLight = {
@@ -59,6 +89,7 @@ export const assetsLight = {
 	images: {
 		...imgs,
 	},
+	...methods,
 };
 
 export const assetsDark = {
@@ -74,4 +105,5 @@ export const assetsDark = {
 	images: {
 		...imgs,
 	},
+	...methods,
 };
