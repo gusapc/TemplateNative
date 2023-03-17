@@ -1,27 +1,25 @@
-import React, { useState, useLayoutEffect, useRef, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './ExampleScreenStyle';
-import sentences4 from './apendix2';
-import originVerbs from './originVerbsApendix2';
-import verbs from './dataApendix2';
+import sentences from './sentences3';
+import originVerbs from './originVerbs';
+
+// import sentences from './sentences';
+// import sentences from './sentences';
+import verbs from './data3';
 import TextComponent from '../../components/TextComponent';
-import { View, Dimensions, SafeAreaView, Text, ScrollView, Platform } from 'react-native';
+import { View, Dimensions, SafeAreaView, Text, ScrollView } from 'react-native';
 const screenWidth = Dimensions.get('window').width;
 import { AntDesign, MaterialIcons, Entypo } from '@expo/vector-icons';
-import useApiSimpleObj from '../../hooks/useApiSimpleObj';
-import * as Speech from 'expo-speech';
-import { Audio, InterruptionModeAndroid, InterruptionModeIOS } from 'expo-av';
 
-const highlightKeywords = (texts = [], fullVerbs) => {
+
+
+const highlightKeywords = (texts, fullVerbs) => {
 	return texts.map((text, index) => {
 		const words = text.split(' ');
 		const highlightedWords = words.map((word, wordIndex) => {
 			if (fullVerbs.includes(word)) {
 				return (
-					<Text
-						onPress={() => Speech.speak(word, { volume: 1, language: 'en' })}
-						key={wordIndex}
-						style={{ textDecorationLine: 'underline', color: '#4E93CE' }}
-					>
+					<Text key={wordIndex} style={{ textDecorationLine: 'underline', color: '#4E93CE' }}>
 						{word}{' '}
 					</Text>
 				);
@@ -45,7 +43,7 @@ const renderItem = (item, index) => {
 					text={item}
 				/>
 			</View>
-			{index % 3 === 2 && (
+			{index % 2 === 1 && (
 				<View style={{ width: screenWidth, height: 2, backgroundColor: 'grey', marginVertical: 8 }} />
 			)}
 		</React.Fragment>
@@ -53,20 +51,13 @@ const renderItem = (item, index) => {
 };
 
 export default function ExampleScreen(props) {
-	const scrollViewRef = useRef();
-
-	const hueLoader = useApiSimpleObj('HUE');
 	const [list, setList] = useState([]);
+	const [listRandom, setListRandom] = useState([]);
+	const [current, setCurrent] = useState(0);
+	const [showTitle, setShowTitle] = useState(!false);
 	const [fullVerbs, setFullVerbs] = useState(false);
 	const [isRandom, setIsRandom] = useState(false);
-
-	let listRandom = hueLoader.data.listRandom;
-	let randomIndex = hueLoader.data.randomIndex;
-	let current = hueLoader.data.current || 0;
-
-	const setCurrent = (n) => {
-		hueLoader.setData({ current: n });
-	};
+	const [randomIndex, setRandomIndex] = useState([]);
 
 	const shuffleArray = (array) => {
 		const newArray = [...array];
@@ -76,7 +67,8 @@ export default function ExampleScreen(props) {
 			[newArray[i], newArray[j]] = [newArray[j], newArray[i]];
 			[indices[i], indices[j]] = [indices[j], indices[i]];
 		}
-		hueLoader.setData({ randomIndex: indices });
+		setRandomIndex(indices);
+
 		return newArray;
 	};
 
@@ -84,58 +76,23 @@ export default function ExampleScreen(props) {
 	const toPlural = (arr) => arr.map((i) => `${i}s`);
 
 	useEffect(() => {
-		scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
-	}, [current]);
-
-	useEffect(() => {
-		const enableSound = async () => {
-			try {
-				await Audio.setAudioModeAsync({
-					allowsRecordingIOS: false,
-					staysActiveInBackground: true,
-					interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DUCK_OTHERS,
-					playsInSilentModeIOS: true,
-					shouldDuckAndroid: true,
-					interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS
-					// allowsRecordingIOS: false,
-					// interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS,
-					// // interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DUCK_OTHERS,
-					// playsInSilentModeIOS: true,
-					// interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
-					// shouldDuckAndroid: true,
-					// staysActiveInBackground: true,
-					// playThroughEarpieceAndroid: true,
-					// 	allowsRecordingIOS: false,
-					// staysActiveInBackground: false,
-					// interruptionModeIOS: InterruptionModeIOS.DoNotMix,
-					// playsInSilentModeIOS: true,
-					// shouldDuckAndroid: true,
-					// interruptionModeAndroid: InterruptionModeAndroid.DoNotMix,
-					// playThroughEarpieceAndroid: false,
-				});
-			} catch (error) {
-				console.log({ error });
-			}
-		};
-		enableSound();
-	});
-
-	useLayoutEffect(() => {
 		const cap = capitalizeFirstLetter(verbs);
 		const dataToPloral = toPlural(verbs);
 		const capToPloral = toPlural(cap);
 		setFullVerbs(verbs.concat(capToPloral).concat(dataToPloral).concat(cap));
-		if (!hueLoader?.data?.listRandom) {
-			hueLoader.setData({ listRandom: shuffleArray(sentences4) });
-		}
-		if (!hueLoader?.data?.current) {
-			hueLoader.setData({ current: 0 });
-		}
-		setList(sentences4);
+		setListRandom(shuffleArray(sentences));
+		setList(sentences);
 	}, []);
 
 	let currentList = isRandom ? listRandom : list;
-	const highlightedTexts = highlightKeywords(currentList[current], fullVerbs);
+	let currentItem = [];
+	if (currentList.length > 0) {
+		currentItem = Object.entries(currentList[current]).flat();
+	}
+	if (!showTitle) {
+		currentItem = currentItem.filter((item, index) => index % 2 === 1);
+	}
+	const highlightedTexts = highlightKeywords(currentItem, fullVerbs);
 
 	return (
 		<View style={[styles.container, { backgroundColor: 'black' }]}>
@@ -148,7 +105,7 @@ export default function ExampleScreen(props) {
 					text={isRandom ? originVerbs[randomIndex[current]] : originVerbs[current]}
 				/>
 				<View style={{ width: screenWidth, height: 2, backgroundColor: 'white', marginVertical: 8 }} />
-				<ScrollView ref={scrollViewRef}>{highlightedTexts.map(renderItem)}</ScrollView>
+				<ScrollView>{highlightedTexts.map(renderItem)}</ScrollView>
 				<View style={{ width: screenWidth, height: 2, backgroundColor: 'white', marginVertical: 8 }} />
 				<View
 					style={[
@@ -159,12 +116,6 @@ export default function ExampleScreen(props) {
 					]}
 				>
 					<AntDesign onPress={() => setCurrent(0)} name="stepbackward" size={30} color="white" />
-					<MaterialIcons
-						onPress={() => setIsRandom(!isRandom)}
-						name={isRandom ? 'update' : 'update-disabled'}
-						size={30}
-						color="white"
-					/>
 					<AntDesign
 						onPress={() => {
 							if (current === 0) {
@@ -176,13 +127,6 @@ export default function ExampleScreen(props) {
 						name="caretleft"
 						size={30}
 						color="white"
-					/>
-					<TextComponent
-						size="subtitle"
-						align={'left'}
-						font={'fMedium'}
-						color={'white'}
-						text={`${current + 1} / ${list.length}`}
 					/>
 					<AntDesign
 						onPress={() => {
@@ -196,14 +140,41 @@ export default function ExampleScreen(props) {
 						size={30}
 						color="white"
 					/>
+					<AntDesign onPress={() => setCurrent(list.length - 1)} name="stepforward" size={30} color="white" />
+				</View>
+				<View
+					style={[
+						{ backgroundColor: 'black', width: screenWidth },
+						styles.row,
+						styles.justifyContentSpaceEvenly,
+					]}
+				>
+					<MaterialIcons
+						onPress={() => setIsRandom(!isRandom)}
+						name={isRandom ? 'update' : 'update-disabled'}
+						size={30}
+						color="white"
+					/>
 					<Entypo
-						onPress={() => hueLoader.setData({ listRandom: shuffleArray(sentences4) })}
+						onPress={() => setShowTitle(!showTitle)}
+						name={showTitle ? 'eye' : 'eye-with-line'}
+						size={30}
+						color="white"
+					/>
+					<Entypo
+						onPress={() => setListRandom(shuffleArray(sentences))}
 						name={'shuffle'}
 						size={30}
 						color="white"
 					/>
-					<AntDesign onPress={() => setCurrent(list.length - 1)} name="stepforward" size={30} color="white" />
 				</View>
+				<TextComponent
+					size="subtitle"
+					align={'left'}
+					font={'fMedium'}
+					color={'white'}
+					text={`${current + 1} / ${list.length}`}
+				/>
 			</SafeAreaView>
 		</View>
 	);

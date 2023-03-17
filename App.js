@@ -20,7 +20,7 @@ export default function App() {
 		<SetupContainer>
 			<ContextProvider>
 				{({ activeDarkTheme }) => (
-					<View style={styles.container}>
+					<View style={[styles.container, {backgroundColor: 'black'}]}>
 						<NavigationContainer theme={activeDarkTheme ? assetsDark : assetsLight}>
 							<AppNavigator />
 						</NavigationContainer>

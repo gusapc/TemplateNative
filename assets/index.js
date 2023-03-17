@@ -1,7 +1,7 @@
 import { DefaultTheme, DarkTheme } from '@react-navigation/native';
 import logoLight from './Trinary1.png'
 import logoDark from './TrinaryDarkMode2.png'
-
+import colors from '../app/styles/Colors';
 export const defaultColors = {
   white: '#FFFFFF',
   black: '#000',
@@ -17,6 +17,7 @@ export const assetsLight = {
     background: defaultColors.white, 
     main: defaultColors.main, 
     darker: defaultColors.darker, 
+    ...colors
   },
   images: {
     logo: logoLight
@@ -30,6 +31,7 @@ export const assetsDark = {
     background: defaultColors.black, 
     main: defaultColors.main, 
     darker: defaultColors.darker, 
+    ...colors
   },
 
   images: {

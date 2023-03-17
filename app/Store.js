@@ -9,7 +9,7 @@ const persistConfig = {
 	key: 'root',
 	storage: AsyncStorage,
 	stateReconciler: autoMergeLevel1,
-	whitelist: ['Config'],
+	whitelist: ['Config', 'Hue'],
 };
 
 const pReducer = persistReducer(persistConfig, rootReducer);
