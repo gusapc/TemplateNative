@@ -1,16 +1,16 @@
 import React, { useState, useLayoutEffect, useRef, useEffect } from 'react';
-import styles from './ExampleScreenStyle';
-import sentences4 from './apendix2';
-import originVerbs from './originVerbsApendix2';
-import verbs from './dataApendix2';
+import styles from './Apendix3ScreenStyle';
+import sentences4 from './dataapendix3';
+import originVerbs from './originalverbs';
+import verbs from './allverbsaprendix3';
 import TextComponent from '../../components/TextComponent';
-import { View, Dimensions, SafeAreaView, Text, ScrollView, Platform } from 'react-native';
-const screenWidth = Dimensions.get('window').width;
+import { View, Dimensions, SafeAreaView, Text, ScrollView } from 'react-native';
 import { AntDesign, MaterialIcons, Entypo } from '@expo/vector-icons';
 import useApiSimpleObj from '../../hooks/useApiSimpleObj';
 import * as Speech from 'expo-speech';
-import { Audio, InterruptionModeAndroid, InterruptionModeIOS } from 'expo-av';
+import { Audio } from 'expo-av';
 
+const screenWidth = Dimensions.get('window').width;
 const highlightKeywords = (texts = [], fullVerbs) => {
 	return texts.map((text, index) => {
 		const words = text.split(' ');
@@ -45,27 +45,36 @@ const renderItem = (item, index) => {
 					text={item}
 				/>
 			</View>
-			{index % 3 === 2 && (
+			{index % 2 === 1 && (
 				<View style={{ width: screenWidth, height: 2, backgroundColor: 'grey', marginVertical: 8 }} />
 			)}
 		</React.Fragment>
 	);
 };
 
-export default function ExampleScreen(props) {
+export default function Apendix3Screen({ navigation }) {
 	const scrollViewRef = useRef();
 
-	const hueLoader = useApiSimpleObj('HUE');
+	const appendixThreeLoader = useApiSimpleObj('APPENDIX_THREE');
 	const [list, setList] = useState([]);
 	const [fullVerbs, setFullVerbs] = useState(false);
 	const [isRandom, setIsRandom] = useState(false);
 
-	let listRandom = hueLoader.data.listRandom;
-	let randomIndex = hueLoader.data.randomIndex;
-	let current = hueLoader.data.current || 0;
+	let listRandom = appendixThreeLoader.data.listRandom;
+	let randomIndex = appendixThreeLoader.data.randomIndex;
+	let current = appendixThreeLoader.data.current || 0;
+
+	useEffect(() => {
+		navigation.setOptions({
+			title: isRandom ? originVerbs[randomIndex[current]] : originVerbs[current],
+			headerBackTitle: ' '
+		});
+	}, [current]);
+
+
 
 	const setCurrent = (n) => {
-		hueLoader.setData({ current: n });
+		appendixThreeLoader.setData({ current: n });
 	};
 
 	const shuffleArray = (array) => {
@@ -76,7 +85,7 @@ export default function ExampleScreen(props) {
 			[newArray[i], newArray[j]] = [newArray[j], newArray[i]];
 			[indices[i], indices[j]] = [indices[j], indices[i]];
 		}
-		hueLoader.setData({ randomIndex: indices });
+		appendixThreeLoader.setData({ randomIndex: indices });
 		return newArray;
 	};
 
@@ -89,32 +98,32 @@ export default function ExampleScreen(props) {
 
 	useEffect(() => {
 		const configureAudioMode = async () => {
-		  try {
-			await Audio.setAudioModeAsync({
-				allowsRecordingIOS: false,
-				playThroughEarpieceAndroid: false,
-				staysActiveInBackground: false,
-				shouldDuckAndroid: true,
-				playsInSilentModeIOS: true,
-			});
-		  } catch (error) {
-			console.log('Error setting audio mode:', error);
-		  }
+			try {
+				await Audio.setAudioModeAsync({
+					allowsRecordingIOS: false,
+					playThroughEarpieceAndroid: false,
+					staysActiveInBackground: false,
+					shouldDuckAndroid: true,
+					playsInSilentModeIOS: true,
+				});
+			} catch (error) {
+				console.log('Error setting audio mode:', error);
+			}
 		};
-	
+
 		configureAudioMode();
-	  }, []);
+	}, []);
 
 	useLayoutEffect(() => {
 		const cap = capitalizeFirstLetter(verbs);
 		const dataToPloral = toPlural(verbs);
 		const capToPloral = toPlural(cap);
 		setFullVerbs(verbs.concat(capToPloral).concat(dataToPloral).concat(cap));
-		if (!hueLoader?.data?.listRandom) {
-			hueLoader.setData({ listRandom: shuffleArray(sentences4) });
+		if (!appendixThreeLoader?.data?.listRandom) {
+			appendixThreeLoader.setData({ listRandom: shuffleArray(sentences4) });
 		}
-		if (!hueLoader?.data?.current) {
-			hueLoader.setData({ current: 0 });
+		if (!appendixThreeLoader?.data?.current) {
+			appendixThreeLoader.setData({ current: 0 });
 		}
 		setList(sentences4);
 	}, []);
@@ -125,14 +134,6 @@ export default function ExampleScreen(props) {
 	return (
 		<View style={[styles.container, { backgroundColor: 'black' }]}>
 			<SafeAreaView style={[styles.container, { backgroundColor: 'black' }, styles.justifyContentSpaceBetween]}>
-				<TextComponent
-					size="subtitle"
-					align={'left'}
-					font={'fMedium'}
-					color={'white'}
-					text={isRandom ? originVerbs[randomIndex[current]] : originVerbs[current]}
-				/>
-				<View style={{ width: screenWidth, height: 2, backgroundColor: 'white', marginVertical: 8 }} />
 				<ScrollView ref={scrollViewRef}>{highlightedTexts.map(renderItem)}</ScrollView>
 				<View style={{ width: screenWidth, height: 2, backgroundColor: 'white', marginVertical: 8 }} />
 				<View
@@ -182,7 +183,7 @@ export default function ExampleScreen(props) {
 						color="white"
 					/>
 					<Entypo
-						onPress={() => hueLoader.setData({ listRandom: shuffleArray(sentences4) })}
+						onPress={() => appendixThreeLoader.setData({ listRandom: shuffleArray(sentences4) })}
 						name={'shuffle'}
 						size={30}
 						color="white"

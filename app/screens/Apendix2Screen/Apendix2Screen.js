@@ -1,16 +1,16 @@
 import React, { useState, useLayoutEffect, useRef, useEffect } from 'react';
-import styles from './ExampleScreenStyle';
+import styles from './Apendix2ScreenStyle';
 import sentences4 from './apendix2';
 import originVerbs from './originVerbsApendix2';
 import verbs from './dataApendix2';
 import TextComponent from '../../components/TextComponent';
-import { View, Dimensions, SafeAreaView, Text, ScrollView, Platform } from 'react-native';
-const screenWidth = Dimensions.get('window').width;
+import { View, Dimensions, SafeAreaView, Text, ScrollView } from 'react-native';
 import { AntDesign, MaterialIcons, Entypo } from '@expo/vector-icons';
 import useApiSimpleObj from '../../hooks/useApiSimpleObj';
 import * as Speech from 'expo-speech';
-import { Audio, InterruptionModeAndroid, InterruptionModeIOS } from 'expo-av';
+import { Audio } from 'expo-av';
 
+const screenWidth = Dimensions.get('window').width;
 const highlightKeywords = (texts = [], fullVerbs) => {
 	return texts.map((text, index) => {
 		const words = text.split(' ');
@@ -52,20 +52,29 @@ const renderItem = (item, index) => {
 	);
 };
 
-export default function ExampleScreen(props) {
+export default function Apendix2Screen({navigation}) {
 	const scrollViewRef = useRef();
 
-	const hueLoader = useApiSimpleObj('HUE');
+	const appendixOneLoader = useApiSimpleObj('APPENDIX_ONE');
 	const [list, setList] = useState([]);
 	const [fullVerbs, setFullVerbs] = useState(false);
 	const [isRandom, setIsRandom] = useState(false);
 
-	let listRandom = hueLoader.data.listRandom;
-	let randomIndex = hueLoader.data.randomIndex;
-	let current = hueLoader.data.current || 0;
+	let listRandom = appendixOneLoader.data.listRandom;
+	let randomIndex = appendixOneLoader.data.randomIndex;
+	let current = appendixOneLoader.data.current || 0;
+
+	useEffect(() => {
+		navigation.setOptions({
+		  title: isRandom ? originVerbs[randomIndex[current]] : originVerbs[current],
+		  headerBackTitle: ' '
+		});
+	  }, [current]);
+
+	
 
 	const setCurrent = (n) => {
-		hueLoader.setData({ current: n });
+		appendixOneLoader.setData({ current: n });
 	};
 
 	const shuffleArray = (array) => {
@@ -76,7 +85,7 @@ export default function ExampleScreen(props) {
 			[newArray[i], newArray[j]] = [newArray[j], newArray[i]];
 			[indices[i], indices[j]] = [indices[j], indices[i]];
 		}
-		hueLoader.setData({ randomIndex: indices });
+		appendixOneLoader.setData({ randomIndex: indices });
 		return newArray;
 	};
 
@@ -110,11 +119,11 @@ export default function ExampleScreen(props) {
 		const dataToPloral = toPlural(verbs);
 		const capToPloral = toPlural(cap);
 		setFullVerbs(verbs.concat(capToPloral).concat(dataToPloral).concat(cap));
-		if (!hueLoader?.data?.listRandom) {
-			hueLoader.setData({ listRandom: shuffleArray(sentences4) });
+		if (!appendixOneLoader?.data?.listRandom) {
+			appendixOneLoader.setData({ listRandom: shuffleArray(sentences4) });
 		}
-		if (!hueLoader?.data?.current) {
-			hueLoader.setData({ current: 0 });
+		if (!appendixOneLoader?.data?.current) {
+			appendixOneLoader.setData({ current: 0 });
 		}
 		setList(sentences4);
 	}, []);
@@ -125,14 +134,6 @@ export default function ExampleScreen(props) {
 	return (
 		<View style={[styles.container, { backgroundColor: 'black' }]}>
 			<SafeAreaView style={[styles.container, { backgroundColor: 'black' }, styles.justifyContentSpaceBetween]}>
-				<TextComponent
-					size="subtitle"
-					align={'left'}
-					font={'fMedium'}
-					color={'white'}
-					text={isRandom ? originVerbs[randomIndex[current]] : originVerbs[current]}
-				/>
-				<View style={{ width: screenWidth, height: 2, backgroundColor: 'white', marginVertical: 8 }} />
 				<ScrollView ref={scrollViewRef}>{highlightedTexts.map(renderItem)}</ScrollView>
 				<View style={{ width: screenWidth, height: 2, backgroundColor: 'white', marginVertical: 8 }} />
 				<View
@@ -182,7 +183,7 @@ export default function ExampleScreen(props) {
 						color="white"
 					/>
 					<Entypo
-						onPress={() => hueLoader.setData({ listRandom: shuffleArray(sentences4) })}
+						onPress={() => appendixOneLoader.setData({ listRandom: shuffleArray(sentences4) })}
 						name={'shuffle'}
 						size={30}
 						color="white"
