@@ -6,6 +6,7 @@ import './app/locales/moment-es';
 import { SetupContainer } from './app/containers';
 import { assetsLight, assetsDark } from './assets';
 import { ContextProvider } from './app/Context';
+import 'react-native-gesture-handler';
 
 import locales from './app/utils/locales';
 import es from './app/locales/es';

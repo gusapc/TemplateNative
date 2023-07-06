@@ -20,7 +20,7 @@ export default function ExampleScreen({navigation}) {
 			<TextComponent size="big" text={currentScreen} />
 			<Button
 				title="Go to Details"
-				onPress={() => navigation.navigate('HomeScreen', {algo: 'algo'})}
+				onPress={() => navigation.goBack()}
 			/>
 		</View>
 	);
